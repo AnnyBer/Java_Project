@@ -2,7 +2,7 @@ public class LessonFirst {
 
     public static void main(String[] args){
 
-        System.out.println(f(1,2,3,4)); // Задание 1.
+        System.out.println(f( 1,2,3,4)); // Задание 1.
 
         System.out.println(f2(5,3));          // Задание 2.
         System.out.println(f2(6,5));
@@ -30,8 +30,8 @@ public class LessonFirst {
     1) Написать метод вычисляющий выражение a * (b + (c / d)) и возвращающий
     результат с плавающей точкой, где a, b, c, d – целочисленные входные параметры этого метода;
  */
-    public static float f(int a, int b, int c, int d){
-        return ( (float) a*( (float) b+( (float) c/ (float) d)));
+    public static float f(float a, float b, float c, float d){
+        return (a * (b + (c / d)));
     }
 
 
