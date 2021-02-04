@@ -2,11 +2,12 @@ import java.util.Arrays;
 
 public class LessonTwo {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         task1();
         task2();
         task3();
         task4();
+        task5();
     }
 
 //  1 Задать целочисленный массив, состоящий из элементов 0 и 1.
@@ -17,13 +18,13 @@ public class LessonTwo {
         int[] myArray = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
         System.out.println(Arrays.toString(myArray));
         for (int i = 0; i < myArray.length; i++) {
-            myArray[i]=(myArray[i] == 1) ? 0 : 1;
+            myArray[i] = (myArray[i] == 1) ? 0 : 1;
         }
         System.out.println(Arrays.toString(myArray));
     }
 
- //   2 Задать пустой целочисленный массив размером 8.
- //   Написать метод, который c помощью цикла заполнит его значениями 1 4 7 10 13 16 19 22;
+    //   2 Задать пустой целочисленный массив размером 8.
+    //   Написать метод, который c помощью цикла заполнит его значениями 1 4 7 10 13 16 19 22;
 
     public static void task2() {
         int[] theThird = new int[8];
@@ -39,9 +40,10 @@ public class LessonTwo {
 
     public static void task3() {
         int[] arr = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        int[] res= multiplay(arr);
+        int[] res = multiplay(arr);
         System.out.println(Arrays.toString(res));
     }
+
     public static int[] multiplay(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < 6) {
@@ -50,7 +52,8 @@ public class LessonTwo {
         }
         return arr;
     }
-//   4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
+
+    //   4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
     public static void task4() {
         int[] arr = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, -1};
         int[] minMax = getMinMax(arr);
@@ -61,7 +64,6 @@ public class LessonTwo {
         int[] res = new int[2];
         int max = 0;
         int min = arr[0];
-
         for (int j : arr) {
             if (max < j) {
                 max = j;
@@ -73,6 +75,35 @@ public class LessonTwo {
         res[0] = min;
         res[1] = max;
         return res;
+    }
+
+//  5* Создать квадратный целочисленный массив
+//  (количество строк и столбцов одинаковое), заполнить его диагональные
+//  элементы единицами, используя цикл(ы);
+
+    public static void task5() {
+        int[][] matrix = new int[5][5];
+        fillMatrix(matrix);
+        printMatrix(matrix);
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int x = 0; x < 5; x++) {
+            for (int y = 0; y < 5; y++) {
+                System.out.print(matrix[x][y] + "\t");
+            }
+            System.out.print("\n");
+        }
+    }
+
+    private static void fillMatrix(int[][] matrix) {
+        for (int x = 0; x < 5; x++) {
+            for (int y = 0; y < 5; y++) {
+                if (x == y || x + y == 4) {
+                    matrix[x][y] = 1;
+                }
+            }
+        }
     }
 }
 
