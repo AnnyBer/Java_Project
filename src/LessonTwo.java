@@ -8,6 +8,7 @@ public class LessonTwo {
         task3();
         task4();
         task5();
+        task6();
     }
 
 //  1 Задать целочисленный массив, состоящий из элементов 0 и 1.
@@ -105,5 +106,35 @@ public class LessonTwo {
             }
         }
     }
+
+//  6** Написать метод, которому на вход подаётся одномерный массив
+//  и число n (может быть положительным, или отрицательным),
+//  при этом метод должен циклически сместить все элементы массива на n позиций.
+
+    public static void task6() {
+        int[] arr = {1, 2, 3, 4, 5};
+        int n = 1;
+        shiftArr (arr, n);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void shiftArr(int[] arr, int n) {
+        int j;
+        for (int i = 0; i < arr.length; i++) {
+            j = i + n;
+//            if (j < arr.length) {
+//                arr[j] = arr[i];
+//            } else {
+//                arr[0] = arr[i];
+//            }
+            while (j < arr.length){
+                arr[j] = arr[i];
+                if(j == arr.length-1) {
+                    arr[j]=arr[0];
+                }
+            }
+        }
+    }
+
 }
 
