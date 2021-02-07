@@ -83,14 +83,15 @@ public class LessonTwo {
 //  элементы единицами, используя цикл(ы);
 
     public static void task5() {
-        int[][] matrix = new int[5][5];
+        int element = 11;
+        int[][] matrix = new int[element][element];
         fillMatrix(matrix);
         printMatrix(matrix);
     }
 
     private static void printMatrix(int[][] matrix) {
-        for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix.length; y++) {
                 System.out.print(matrix[x][y] + "\t");
             }
             System.out.print("\n");
@@ -98,9 +99,9 @@ public class LessonTwo {
     }
 
     private static void fillMatrix(int[][] matrix) {
-        for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
-                if (x == y || x + y == 4) {
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix.length; y++) {
+                if (x == y || x + y == matrix.length - 1) {
                     matrix[x][y] = 1;
                 }
             }
@@ -112,29 +113,37 @@ public class LessonTwo {
 //  при этом метод должен циклически сместить все элементы массива на n позиций.
 
     public static void task6() {
-        int[] arr = {1, 2, 3, 4, 5};
-        int n = 1;
-        shiftArr (arr, n);
-        System.out.println(Arrays.toString(arr));
+        int[] arr = {1, 2, 3, 4, 5, 6,7};
+        System.out.println("#6" + Arrays.toString(arr));
+        shiftArr(arr, -2);
+        System.out.println("-2" + Arrays.toString(arr));
+        shiftArr (arr,  5);
+        System.out.println("+5" + Arrays.toString(arr));
     }
 
     private static void shiftArr(int[] arr, int n) {
-        int j;
-        for (int i = 0; i < arr.length; i++) {
-            j = i + n;
-//            if (j < arr.length) {
-//                arr[j] = arr[i];
-//            } else {
-//                arr[0] = arr[i];
-//            }
-            while (j < arr.length){
-                arr[j] = arr[i];
-                if(j == arr.length-1) {
-                    arr[j]=arr[0];
-                }
+        boolean direction;
+        if (n < 0) {
+            direction = true;
+            n = -n;
+        } else {
+            direction = false;
+        }
+        n %= arr.length;
+        int LastIndex = arr.length - 1;
+        for (int i = 0; i < n; i++) {
+            int temp = (direction) ? arr[0] : arr[LastIndex];
+            for (int j = 0; j < LastIndex; j++) {
+                if (direction)
+                arr[j] = arr[j + 1];
+                else
+                arr[LastIndex - j] = arr[LastIndex - j - 1];
             }
+            if (direction)
+                arr[LastIndex] = temp;
+            else
+                arr[0] = temp;
         }
     }
-
 }
 
