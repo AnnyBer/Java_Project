@@ -30,7 +30,7 @@ public class LessonTwo {
     public static void task2() {
         int[] theThird = new int[8];
         theThird[0] = 1;
-        for (int i = 1; i < 8; i++) {
+        for (int i = 1; i < theThird.length; i++) {
             theThird[i] = theThird[i - 1] + 3;
         }
         System.out.println(Arrays.toString(theThird));
