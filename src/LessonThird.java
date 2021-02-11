@@ -36,10 +36,14 @@ public class LessonThird {
         System.out.println("******************");
     }
 
-    public static boolean ValidCell(int x, int y) {
-        if (x < 0 || x >= fieldSizeX || y < 0 || y >= fieldSizeY) return true;
-        return field[x][y] != empty;
+    public static boolean isValidCell(int y, int x) {
+        return x < 0 || x >= fieldSizeX || y < 0 || y >= fieldSizeY;
     }
+
+    public static boolean isEmptyCell(int y, int x) {
+        return field[y][x] == empty;
+    }
+
 
     public static void manTurn () {
         int x;
@@ -48,7 +52,7 @@ public class LessonThird {
             System.out.println("Ваш ход! Введите координаты хода (1, 2, 3)");
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
-        } while (ValidCell(x, y));
+        } while (isValidCell(y, x) || isEmptyCell(y, x));
         field[x][y] = manDot;
     }
 
@@ -58,7 +62,7 @@ public class LessonThird {
         do {
             x = random.nextInt(fieldSizeX);
             y = random.nextInt(fieldSizeY);
-        } while (ValidCell(x, y));
+        } while (isEmptyCell(y, x));
         field[x][y] = compDot;
     }
 
