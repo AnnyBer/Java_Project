@@ -1,15 +1,12 @@
 package JavaCore.Lesson6;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import JavaCore.Lesson6.Period;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 
 public class Main {
     private static final String KEY = "CGJzusnlRQDntWXv4eJcnZ772u3NXdbl";
@@ -24,12 +21,11 @@ public class Main {
     private static final String AUTOCOMPLETE = "autocomplete";
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
     public static void getWeather(Period period, String selectedCity) throws IOException {
         String cityKey = findCity(selectedCity);
-        if (period == JavaCore.Lesson6.Period.FIVE_DAYS) {
+        if (period == Period.FIVE_DAYS) {
             HttpUrl httpUrl = new HttpUrl.Builder()
                     .scheme(PROTOCOL)
                     .host(HOST)
@@ -47,13 +43,24 @@ public class Main {
                     .build();
 
             Response response = okHttpClient.newCall(request).execute();
-            String responseString = response.body().string();
+            String json = response.body().string();
 
-            //            JsonForecast jsonForecast = objectMapper
-            //                   .readerFor(JsonForecast.class)
-            //                   .readValue(responseString);
-            System.out.println(responseString);
-            //           System.out.println(jsonForecast.Headline.getEffectiveDate());
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonForecast jsonForecast = objectMapper
+                    .readerFor(JsonForecast.class)
+                    .readValue(json);
+
+            for (DayForecast dayF : jsonForecast.getDailyForecasts()) {
+                System.out.println("---------------------------------");
+                System.out.println("На дату: " + dayF.getDate());
+                System.out.println("Ожидается днем: " + dayF.getDay().getIconPhrase());
+                System.out.println("Ожидается ночью: " + dayF.getNight().getIconPhrase());
+                System.out.println("Максимальная температура: " + dayF.getTemperature().getMaximum().toString());
+                System.out.println("Минимальная температура: " + dayF.getTemperature().getMinimum().toString());
+                System.out.println("---------------------------------");
+                System.out.println();
+            }
+
         }
     }
 
@@ -77,6 +84,8 @@ public class Main {
 
         Response response = okHttpClient.newCall(request).execute();
         String responseString = response.body().string();
+
+        ObjectMapper objectMapper = new ObjectMapper();
         String cityKey = objectMapper.readTree(responseString).get(0).at("/Key").asText();
 
         return cityKey;
